@@ -14,15 +14,23 @@ module.exports = (sequelize) => {
       unique: true,
       allowNull: false
     },
-    description: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    health_score: {
+    healthScore: {
       type: DataTypes.INTEGER
     },
     steps: {
       type: DataTypes.TEXT
+    },
+    image: {
+      type: DataTypes.STRING,
+    },
+    myRecipe: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, { timestamps: false });
 };
