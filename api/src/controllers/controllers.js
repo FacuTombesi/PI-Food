@@ -1,9 +1,12 @@
+const axios = require("axios");
 const { Recipe, Diet } = require("../db");
+require('dotenv').config();
+const { API_KEY } = process.env;
 
 // -------------------- RECIPES GETTERS FROM API AND DATABASE -------------------- 
 const getRecipesFromApi = async () => {
     try {
-        const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=300`)
+        const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
         const recipesApi = await response.data.results.map((recipe) => {
             const { id, healthScore, image } = recipe
             return {
@@ -20,7 +23,7 @@ const getRecipesFromApi = async () => {
         })
         return recipesApi
     }   catch (error) {
-        throw Error("Couldn't retrieve recipes from API")
+        res.status(400).send("Couldn't retrieve recipes from API")
     }
 };
 
@@ -37,28 +40,28 @@ const getRecipesFromDb = async () => {
         })
         return recipesDb
     }   catch (error) {
-        throw Error("The recipe book is empty")
+        res.status(404).send("The recipe book is empty")
     }
 };
 
 const processInfoFromDb = async () => {
     try {
-        const dataInDb = await getRecipesFromDb()
-        const processedData = dataInDb.map((recipe) => ({
+        const recipesInDb = await getRecipesFromDb()
+        const processedData = recipesInDb.map((recipe) => ({
             id: recipe.id,
             name: recipe.name,
             healthScore: recipe.healthScore,
             image: recipe.image,
             summary: recipe.summary,
             steps: recipe.steps,
-            diets: recipe.diets.map((diet) => {
-                return diet.name;
+            diets: recipe.diets.map((d) => {
+                return d.name;
             }).join(", "),
             myRecipe: recipe.createdInDb
         }));
         return processedData;
     }   catch (error) {
-        throw Error("Error processing data")
+        res.status(400).send("Error processing data")
     }
 };
 
@@ -69,7 +72,7 @@ const getAllRecipes = async () => {
         const allRecipes = apiRecipes.concat(dbRecipes)
         return allRecipes
     }   catch (error) {
-        throw Error(error)
+        res.status(400).send(error)
     }
 };
 
@@ -79,16 +82,16 @@ const getRecipes = async (req, res) => {
         let allRecipes = await getAllRecipes()
         const { name } = req.query
         if (name) {
-            let findByName = await allRecipes.filter((recipe) =>
-                recipe.name.toLowerCase().includes(name.toLowerCase())
+            let findByName = await allRecipes.filter((r) =>
+                r.name.toLowerCase().includes(name.toLowerCase())
             )
             if (findByName.length) {
-                return res.status(200).send(findByName)
+                res.status(200).send(findByName)
             }   else {
-                return res.status(404).send(`The recipe ${name} doesn't exist yet`)
+                throw Error(`The recipe ${name} doesn't exist yet`)
             }
         }   else {
-            return res.status(200).send(allRecipes)
+            res.status(200).send(allRecipes)
         }
     }   catch (error) {
         res.status(404).send(error)
@@ -100,11 +103,11 @@ const getRecipeById = async (req, res) => {
         const allRecipes = await getRecipes()
         const { id } = req.params
         if (id) {
-            let findById = await allRecipes.filter((recipe) => recipe.id == id)
+            let findById = await allRecipes.filter((r) => r.id == id)
             if (findById.length) {
-                return res.status(200).send(findById)
+                res.status(200).send(findById)
             }   else {
-                return res.status(404).send(`The recipe with the ID: ${id} doesn't exist`)
+                throw Error(`The recipe with the ID: ${id} doesn't exist`)
             }
         }
     }   catch (error) {
@@ -115,7 +118,8 @@ const getRecipeById = async (req, res) => {
 const createRecipe = async (req, res) => {
     try {
         const { name, summary, healthScore, image, steps, myRecipe, diets } = req.body
-        const recipeCreated = await Recipe.create({
+        if (!name || !summary || !steps) throw Error("Missing important information")
+        const newRecipe = await Recipe.create({
             name,
             summary,
             healthScore,
@@ -124,25 +128,10 @@ const createRecipe = async (req, res) => {
             myRecipe,
             diets,
         })
-        recipeCreated.addDiet(diets)
+        newRecipe.addDiet(diets)
         res.status(200).send(`The recipe ${name} has been added to the recipe book`)
     }   catch (error) {
-        res.status(404).send(`Missing important information`)
-    }
-};
-
-const deleteRecipe = async (req, res) => {
-    try {
-        const { id } = req.params
-        const recipeToDelete = await Recipe.findByPk(id)
-        if (recipeToDelete) {
-            await recipeToDelete.destroy()
-            res.status(200).json(recipeToDelete)
-        }   else {
-            throw Error(`Recipe with the ID: ${id} does not exist`)
-        }
-    }   catch (error) {
-        res.status(400).send(error)
+        res.status(404).send(error)
     }
 };
 
@@ -200,23 +189,23 @@ let diets = [
 const getDiets = async (req, res) => {
     try {
         const allDiets = await Diet.findAll()
-        if (!allDiets.length) {
-            const defaultDiets = await Diet.bulkCreate(diets)
-            return res.status(200).send(defaultDiets)
-        }   else {
-            return res.status(200).send(allDiets)
+        if (allDiets.length) return res.status(200).send(allDiets)
+        else {
+            try {
+                const defaultDiets = await Diet.bulkCreate(diets)
+                return res.status(200).send(defaultDiets)
+            }   catch (error) {
+                res.status(404).send("There are no diets yet")
+            }
         }
     }   catch (error) {
         res.status(404).send("There are no diets yet")
     }
 };
 
-
 module.exports = {
     getRecipes,
-    findRecipe,
     getRecipeById,
     createRecipe,
-    deleteRecipe,
     getDiets
 };
