@@ -3,10 +3,9 @@ import {
     GET_RECIPE_BY_NAME,
     GET_RECIPE_BY_ID,
     CREATE_RECIPE,
-    DELETE_RECIPE,
     FILTER_MY_RECIPES,
-    ORDER_BY_NAME,
-    ORDER_BY_SCORE,
+    SORT_BY_NAME,
+    SORT_BY_SCORE,
     GET_DIETS,
     FILTER_BY_DIET 
 } from "./actions";
@@ -48,12 +47,6 @@ const rootReducer = (state = initialState, action) => {
                 myRecipes: [...state.myRecipes, action.payload]
             }
 
-        case DELETE_RECIPE:
-            return {
-                ...state,
-                myRecipes: state.myRecipes.filter((recipe) => recipe.id !== action.payload)
-            }
-
         // FILTERS / ORDERS FOR RECIPES
         case FILTER_MY_RECIPES:
             const allRecipesByCreation = state.allRecipes
@@ -66,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
                 recipes: action.payload === "all" ? state.allRecipes : myRecipesFilter
             }
 
-        case ORDER_BY_NAME:
+        case SORT_BY_NAME:
             let sortByName =
                 action.payload === "asc"
                     ? state.recipes.sort(function (a, b) {
@@ -84,7 +77,7 @@ const rootReducer = (state = initialState, action) => {
                 recipes: sortByName
             }
 
-        case ORDER_BY_SCORE:
+        case SORT_BY_SCORE:
             let sortByScore =
                 action.payload === "asc"
                     ? state.recipes.sort(function (a, b) {

@@ -4,10 +4,9 @@ export const GET_RECIPES = "GET_RECIPES";
 export const GET_RECIPE_BY_NAME = "GET_RECIPE_BY_NAME";
 export const GET_RECIPE_BY_ID = "GET_RECIPE_BY_ID";
 export const CREATE_RECIPE = "CREATE_RECIPE";
-export const DELETE_RECIPE = "DELETE_RECIPE";
 export const FILTER_MY_RECIPES = "FILTER_MY_RECIPES";
-export const ORDER_BY_NAME = "ORDER_BY_NAME";
-export const ORDER_BY_SCORE = "ORDER_BY_SCORE";
+export const SORT_BY_NAME = "SORT_BY_NAME";
+export const SORT_BY_SCORE = "SORT_BY_SCORE";
 export const GET_DIETS = "GET_DIETS";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
 
@@ -58,17 +57,6 @@ export const createRecipe = (body) => {
     }
 };
 
-export const deleteRecipe = (id) => {
-    return async function (dispatch) {
-        try {
-            const response = await axios.delete(`http://localhost:3001/recipes/${id}`)
-            return dispatch({ type: DELETE_RECIPE, payload: response.data })
-        }   catch (error) {
-            console.log(`The recipe with the ID: ${id} doesn't exist`)
-        }
-    }
-};
-
 // FILTERS / ORDERS
 export const filterMyRecipes = (payload) => {
     return {
@@ -77,16 +65,16 @@ export const filterMyRecipes = (payload) => {
     }
 };
 
-export const orderByName = (payload) => {
+export const sortByName = (payload) => {
     return {
-        type: ORDER_BY_NAME,
+        type: SORT_BY_NAME,
         payload
     }
 };
 
-export const orderByScore = (payload) => {
+export const sortByScore = (payload) => {
     return {
-        type: ORDER_BY_SCORE,
+        type: SORT_BY_SCORE,
         payload
     }
 };
