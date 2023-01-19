@@ -13,9 +13,8 @@ import {
 
 const initialState = {
     recipes: [],
-    recipeDetail: [],
     allRecipes: [],
-    myRecipes: [],
+    recipeDetail: {},
     diets: []
 };
 
@@ -44,19 +43,19 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_RECIPE:
             return {
                 ...state,
-                myRecipes: [...state.myRecipes, action.payload]
+                recipes: [...state.recipes, action.payload]
             }
 
-        // FILTERS / ORDERS FOR RECIPES
+        // FILTERS / SORTS FOR RECIPES
         case FILTER_MY_RECIPES:
-            const allRecipesByCreation = state.allRecipes
-            const myRecipesFilter =
+            const allRecipes = state.allRecipes
+            const createdFilter =
                 action.payload === "created"
-                    ? allRecipesByCreation.filter((recipe) => recipe.myRecipe)
-                    : allRecipesByCreation.filter((recipe) => !recipe.myRecipe)
+                    ? allRecipes.filter((r) => r.myRecipe)
+                    : allRecipes.filter((r) => !r.myRecipe)
             return {
                 ...state,
-                recipes: action.payload === "all" ? state.allRecipes : myRecipesFilter
+                recipes: action.payload === "all" ? state.allRecipes : createdFilter
             }
 
         case SORT_BY_NAME:
@@ -108,14 +107,16 @@ const rootReducer = (state = initialState, action) => {
             const dietFilter =
                 action.payload === ""
                     ? allRecipesByDiet
-                    : allRecipesByDiet.filter((recipe) => recipe.diets.includes(action.payload))
+                    : allRecipesByDiet.filter((r) => r.diets.includes(action.payload))
             return {
                 ...state,
                 recipes: dietFilter
             }
 
-        default:
-            return state
+        default: 
+            return {
+                ...state
+            }                
     }
 };
 
