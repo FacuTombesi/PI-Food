@@ -3,56 +3,56 @@ const { Recipe, Diet } = require("../db");
 require('dotenv').config();
 const { API_KEY } = process.env;
 
-// -------------------- RECIPES GETTERS FROM API AND DATABASE -------------------- 
-const getRecipesFromApi = async () => {
+// -------------------- GETTING/ MERGING DATA FROM API AND DATABASE -------------------- 
+const getDataFromApi = async () => {
     try {
         const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
-        const recipesApi = await response.data.results.map((recipe) => {
+        const dataApi = await response.data.results.map((recipe) => {
             const { id, healthScore, image } = recipe
             return {
                 id,
                 name: recipe.title,
+                summary: recipe.summary.replace(/<[^>]*>?/g, ""),
                 healthScore,
                 image,
-                summary: recipe.summary.replace(/<[^>]*>?/g, ""),
                 steps: recipe.analyzedInstructions[0]?.steps.map((recipeStep) => {
-                    return recipeStep.step;
+                    return recipeStep.step
                 }),
                 diets: recipe.diets.join(", ")
             }
         })
-        return recipesApi
+        return dataApi
     }   catch (error) {
         res.status(400).send("Couldn't retrieve recipes from API")
     }
 };
 
-const getRecipesFromDb = async () => {
+const getDataFromDb = async () => {
     try {
-        const recipesDb = await Recipe.findAll({
+        const dataDb = await Recipe.findAll({
             include: {
                 model: Diet,
                 attributes: ["name"],
                 through: {
-                    attributes: [],
+                    attributes: []
                 }
             }
         })
-        return recipesDb
+        return dataDb
     }   catch (error) {
         res.status(404).send("The recipe book is empty")
     }
 };
 
-const processInfoFromDb = async () => {
+const processDataFromDb = async () => {
     try {
-        const recipesInDb = await getRecipesFromDb()
+        const recipesInDb = await getDataFromDb()
         const processedData = recipesInDb.map((recipe) => ({
             id: recipe.id,
             name: recipe.name,
+            summary: recipe.summary,
             healthScore: recipe.healthScore,
             image: recipe.image,
-            summary: recipe.summary,
             steps: recipe.steps,
             diets: recipe.diets.map((d) => {
                 return d.name;
@@ -65,146 +65,64 @@ const processInfoFromDb = async () => {
     }
 };
 
-const getAllRecipes = async () => {
-    try {
-        const apiRecipes = await getRecipesFromApi()
-        const dbRecipes = await processInfoFromDb()
-        const allRecipes = apiRecipes.concat(dbRecipes)
-        return allRecipes
-    }   catch (error) {
-        res.status(400).send(error)
-    }
-};
-
 // ------------------------------ RECIPE CONTROLLERS ------------------------------
-const getRecipes = async (req, res) => {
-    try {
-        let allRecipes = await getAllRecipes()
-        const { name } = req.query
-        if (name) {
-            let findByName = await allRecipes.filter((r) =>
-                r.name.toLowerCase().includes(name.toLowerCase())
-            )
-            if (findByName.length) {
-                res.status(200).send(findByName)
-            }   else {
-                throw Error(`The recipe ${name} doesn't exist yet`)
-            }
-        }   else {
-            res.status(200).send(allRecipes)
-        }
-    }   catch (error) {
-        res.status(404).send(error)
-    }
+const getAllRecipes = async () => {
+    const apiRecipes = await getDataFromApi()
+    const dbRecipes = await processDataFromDb()
+    const allRecipes = apiRecipes.concat(dbRecipes)
+    return allRecipes
 };
 
-const getRecipeById = async (req, res) => {
-    try {
-        const allRecipes = await getRecipes()
-        const { id } = req.params
-        if (id) {
-            let findById = await allRecipes.filter((r) => r.id == id)
-            if (findById.length) {
-                res.status(200).send(findById)
-            }   else {
-                throw Error(`The recipe with the ID: ${id} doesn't exist`)
-            }
-        }
-    }   catch (error) {
-        res.status(404).send(error)
-    }
+const getRecipeById = async (id) => {
+    const allRecipes = await getAllRecipes()
+    console.log(allRecipes)
+    let recipeId = await allRecipes.filter((r) => r.id == id)
+    console.log(recipeId)
+    if (recipeId.length) return recipeId
+    else throw Error(`The recipe with the ID: ${id} doesn't exist`)
 };
 
-const createRecipe = async (req, res) => {
-    try {
-        const { name, summary, healthScore, image, steps, myRecipe, diets } = req.body
-        if (!name || !summary || !steps) throw Error("Missing important information")
-        const newRecipe = await Recipe.create({
-            name,
-            summary,
-            healthScore,
-            image,
-            steps,
-            myRecipe,
-            diets,
-        })
-        newRecipe.addDiet(diets)
-        res.status(200).send(`The recipe ${name} has been added to the recipe book`)
-    }   catch (error) {
-        res.status(404).send(error)
-    }
+const createRecipe = async (name, summary, healthScore, image, steps, diets) => {
+    if (!name || !summary || !healthScore || !steps) throw Error("Missing important information")
+    const newRecipe = await Recipe.create({
+        name,
+        summary,
+        healthScore,
+        image,
+        steps,
+        myRecipe: true
+    })
+    newRecipe.addDiet(diets)
+    return newRecipe
 };
 
 // ------------------------------- DIET CONTROLLERS -------------------------------
 
-let dietId = 0;
-
 let diets = [
-    {
-        name: "Gluten Free",
-        id: ++dietId,
-    },
-    {
-        name: "Ketogenic",
-        id: ++dietId,
-    },
-    {
-        name: "Vegetarian",
-        id: ++dietId,
-    },
-    {
-        name: "Lacto-Vegetarian",
-        id: ++dietId,
-    },
-    {
-        name: "Ovo-Vegetarian",
-        id: ++dietId,
-    },
-    {
-        name: "Vegan",
-        id: ++dietId,
-    },
-    {
-        name: "Pescatarian",
-        id: ++dietId,
-    },
-    {
-        name: "Paleo",
-        id: ++dietId,
-    },
-    {
-        name: "Primal",
-        id: ++dietId,
-    },
-    {
-        name: "Low FODMAP",
-        id: ++dietId,
-    },
-    {
-        name: "Whole30",
-        id: ++dietId,
-    }
+    { name: "Gluten Free" },
+    { name: "Ketogenic" },
+    { name: "Vegetarian" },
+    { name: "Lacto-Vegetarian" },
+    { name: "Ovo-Vegetarian" },
+    { name: "Vegan" },
+    { name: "Pescatarian" },
+    { name: "Paleo" },
+    { name: "Primal" },
+    { name: "Low FODMAP" },
+    { name: "Whole30" }
 ];
 
-const getDiets = async (req, res) => {
-    try {
-        const allDiets = await Diet.findAll()
-        if (allDiets.length) return res.status(200).send(allDiets)
-        else {
-            try {
-                const defaultDiets = await Diet.bulkCreate(diets)
-                return res.status(200).send(defaultDiets)
-            }   catch (error) {
-                res.status(404).send("There are no diets yet")
-            }
-        }
-    }   catch (error) {
-        res.status(404).send("There are no diets yet")
+const getDiets = async () => {
+    const allDiets = await Diet.findAll()
+    if (allDiets.length) return res.status(200).send(allDiets)
+    else {
+        const defaultDiets = await Diet.bulkCreate(diets)
+        return defaultDiets
     }
 };
 
 module.exports = {
-    getRecipes,
+    getAllRecipes,
     getRecipeById,
     createRecipe,
     getDiets

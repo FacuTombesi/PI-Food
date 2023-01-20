@@ -20,7 +20,12 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     healthScore: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+        max: 100
+      }
     },
     steps: {
       type: DataTypes.TEXT
