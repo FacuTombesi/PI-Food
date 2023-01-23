@@ -6,15 +6,15 @@ import image2 from "../img/bg2.jpg";
 import image3 from "../img/bg3.jpg";
 import image4 from "../img/bg4.jpg";
 
-const landingPage = () => {
+const LandingPage = () => {
     return (
         <BgContainer>
             <TitleContainer>
-                <h1>Welcome to my</h1>
-                <h2>Food PI</h2>
-                <h3>by Facundo Tombesi</h3>
+                <h1> Welcome to my </h1>
+                <h2> Food PI </h2>
+                <h3> by Facundo Tombesi </h3>
                 <Link to="/home">
-                    <button>ENTER</button>
+                    <button> ENTER </button>
                 </Link>
             </TitleContainer>
         </BgContainer>
@@ -30,6 +30,7 @@ const randomIndex = Math.floor(Math.random() * pictureArray.length);
 const selectedPicture = pictureArray[randomIndex];
 
 const BgContainer = styled.div`
+    position: absolute;
     display: flex;
     flex-direction: row;
     align-content: flex-end;
@@ -50,5 +51,4 @@ const TitleContainer = styled.div`
     background-color: white;
 `
 
-
-export default landingPage;
+export default LandingPage;

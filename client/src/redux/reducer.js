@@ -59,39 +59,53 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case SORT_BY_NAME:
-            let sortByName =
-                action.payload === "asc"
-                    ? state.recipes.sort(function (a, b) {
-                        if (a.name > b.name) return 1
-                        if (b.name > a.name) return -1
-                        return 0
+            let sortByName = []
+            switch (action.payload) {
+                case "asc":
+                    sortByName = state.recipes.sort(function(a, b) {
+                    if (a.name > b.name) return 1
+                    if (b.name > a.name) return -1
+                    return 0
                     })
-                    : state.recipes.sort(function (a, b) {
+                    return {
+                        ... state,
+                        recipes: sortByName
+                    }
+                case "desc":
+                    sortByName = state.recipes.sort(function(a, b) {
                         if (a.name > b.name) return -1
                         if (b.name > a.name) return 1
                         return 0
                     })
-            return {
-                ...state,
-                recipes: sortByName
+                    return {
+                        ... state,
+                        recipes: sortByName
+                    }
             }
 
         case SORT_BY_SCORE:
-            let sortByScore =
-                action.payload === "asc"
-                    ? state.recipes.sort(function (a, b) {
-                        if (a.healthScore > b.healthScore) return 1
-                        if (b.healthScore > a.healthScore) return -1
-                        return 0
-                    })
-                    : state.recipes.sort(function (a, b) {
-                        if (a.healthScore > b.healthScore) return -1
-                        if (b.healthScore > a.healthScore) return 1
-                        return 0
-                    })
-            return {
-                ...state,
-                recipesLoaded: sortByScore
+            let sortByScore = []
+            switch (action.payload) {
+                case "ascScore":
+                    sortByScore = state.recipes.sort(function(a, b) {
+                        if (a.healthScore > b.healthScore) return 1; 
+                        if (b.healthScore > a.healthScore) return -1; 
+                        return 0;
+                    });
+                    return {
+                        ... state,
+                        recipes: sortByScore
+                    }
+                case "descScore":
+                    sortByScore = state.recipes.sort(function(a, b) { 
+                        if (a.healthScore > b.healthScore) return -1; 
+                        if (b.healthScore > a.healthScore) return 1; 
+                        return 0;
+                    });   
+                    return {
+                        ... state,
+                        recipes: sortByScore
+                    }
             }
 
         // CASES FOR DIETS
