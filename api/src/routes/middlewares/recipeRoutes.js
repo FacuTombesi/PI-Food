@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
 router.post("/create", async (req, res) => {
     const { name, summary, healthScore, image, steps, diets } = req.body
     try {
-        const newRecipe = await createRecipe(name, summary, healthScore, image, steps, diets);
+        await createRecipe(name, summary, healthScore, image, steps, diets);
         res.status(200).send(`Recipe "${name}" added to the recipe book`);
     }   catch (error) {
         res.status(404).send(error.message)

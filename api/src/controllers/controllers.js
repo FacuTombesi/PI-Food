@@ -75,9 +75,7 @@ const getAllRecipes = async () => {
 
 const getRecipeById = async (id) => {
     const allRecipes = await getAllRecipes()
-    console.log(allRecipes)
     let recipeId = await allRecipes.filter((r) => r.id == id)
-    console.log(recipeId)
     if (recipeId.length) return recipeId
     else throw Error(`The recipe with the ID: ${id} doesn't exist`)
 };
