@@ -1,7 +1,6 @@
+// const { API_KEY } = process.env;
 const axios = require("axios");
 const { Recipe, Diet, recipeDiet } = require("../db");
-const { all } = require("../routes/middlewares/recipeRouter");
-// const { API_KEY } = process.env;
 
 // -------------------- GETTING AND MERGING DATA FROM API AND DATABASE -------------------- 
 const getDataFromApi = async () => {
@@ -10,15 +9,15 @@ const getDataFromApi = async () => {
     // Api creada a partir de la data de la Api de spoonacular para evitar límite de request a la Api
     const response = await axios.get("https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5")
     // console.log(response)
-    const dataFromApi = await response.data.results.map((recipe) => {
+    const dataFromApi = await response.data.results.map(recipe => {
         return {
             id: recipe.id,
             name: recipe.title,
             image: recipe.image,
             summary: recipe.summary.replace(/<[^>]*>?/g, ""),
             healthScore: recipe.healthScore,
-            steps: recipe.analyzedInstructions.steps?.map((step) => step),
-            diets: recipe.diets?.map((diet) => diet = { name: diet })
+            steps: recipe.analyzedInstructions.steps?.map(step => step), // steps es un array
+            diets: recipe.diets?.map(diet => diet = { name: diet })
         }
     })
     return dataFromApi
@@ -53,8 +52,8 @@ const getRecipeById = async (id) => {
         image: recipe.image,
         summary: recipe.summary.replace(/<[^>]*>?/g, ""),
         healthScore: recipe.healthScore,
-        steps: recipe.analyzedInstructions.steps?.map((step) => step),
-        diets: recipe.diets?.map((diet) => diet = { name: diet })
+        steps: recipe.analyzedInstructions.steps?.map(step => step),
+        diets: recipe.diets?.map(diet => diet = { name: diet })
     }
     return recipeById
 };
@@ -68,10 +67,10 @@ const createRecipe = async (name, image, summary, healthScore, steps, diets) => 
         healthScore: healthScore,
         steps: [[steps]] // El modelo espera un array por lo que le tendo que pasar un array
     })
-    let dietsAux = diets.map((diet) => diet.name.toLowerCase())
+    let dietsAux = diets.map(diet => diet.name.toLowerCase())
     let dietsDb = await Diet.findAll()
     // console.log(dietsDb)
-    let newDiets = dietsDb.filter((diet) => dietsAux.includes(diet.dataValues.name)) // Filtro dietsDb para incluir a newRecipe sólo las dietas cuyo nombre sea igual al recibido por parámetro
+    let newDiets = dietsDb.filter(diet => dietsAux.includes(diet.dataValues.name)) // Filtro dietsDb para incluir a newRecipe sólo las dietas cuyo nombre sea igual al recibido por parámetro
     await newRecipe.addDiet(newDiets, { through: { recipeDiet } }) // Agrego las dietas a la nueva receta y las vinculo a través de la tabla intermedia
     return newRecipe
 };
@@ -95,10 +94,10 @@ const createRecipe = async (name, image, summary, healthScore, steps, diets) => 
 
 const getDiets = async () => {
     const dataFromApi = await getDataFromApi() // La api ahora incluye un array con todos los tipos de dietas
-    const diets = dataFromApi.map((recipe) => recipe.diets)
+    const allDietsFromApi = dataFromApi.map(recipe => recipe.diets)
     // console.log(diets)
-    diets.forEach(recipeDiets => {
-        recipeDiets.map((diet) => { // Diet es un array, por lo que por cada dieta uso findOrCreate...
+    allDietsFromApi.forEach(dietsPerRecipe => {
+        dietsPerRecipe.map(diet => { // Diet es un array, por lo que por cada dieta uso findOrCreate...
             Diet.findOrCreate({ where: { name: diet.name } }) // ... findOrCreate busca (o crea, si no encuentra) la dieta que reciba el nombre pedido
         })
     })

@@ -26,7 +26,7 @@ recipeRouter.get("/:id", async (req, res) => {
                 include: { model: Diet }
             })
             if (!recipeFromDb) throw Error(`No recipe found with the ID: ${id}`)
-            res.status(200).json(recipeFromDb)
+            return res.status(200).json(recipeFromDb)
         }   else {
             const recipeFromApi = await getRecipeById(id)
             if (!recipeFromApi) throw Error(`No recipe found with the ID: ${id}`)
@@ -38,8 +38,8 @@ recipeRouter.get("/:id", async (req, res) => {
 });
 
 recipeRouter.post("/create", async (req, res) => {
-    const { name, image, summary, healthScore, steps, diets } = req.body
     try {
+        const { name, image, summary, healthScore, steps, diets } = req.body
         const newRecipe = await createRecipe(name, image, summary, healthScore, steps, diets);
         res.status(200).send(`Recipe "${name}" added to the recipe book`);
     }   catch (error) {
