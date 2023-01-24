@@ -7,13 +7,14 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false,
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING(255),
-      unique: true,
       allowNull: false
+    },
+    image: {
+      type: DataTypes.STRING,
     },
     summary: {
       type: DataTypes.TEXT,
@@ -28,15 +29,8 @@ module.exports = (sequelize) => {
       }
     },
     steps: {
-      type: DataTypes.TEXT
-    },
-    image: {
-      type: DataTypes.STRING,
-    },
-    myRecipe: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
+      type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING)),
+      allowNull: false
     }
   }, { timestamps: false });
 };
