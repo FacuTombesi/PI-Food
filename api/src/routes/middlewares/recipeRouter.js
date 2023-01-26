@@ -18,7 +18,6 @@ recipeRouter.get("/", async (req, res) => {
 });
 
 recipeRouter.get("/:id", async (req, res) => {
-    const { id } = req.params
     // try {
     //     if (id.includes("-")) {
     //         const recipeFromDb = await Recipe.findOne({ 
@@ -35,7 +34,9 @@ recipeRouter.get("/:id", async (req, res) => {
     // }   catch (error) {
     //     res.status(404).send(error)
     // }
+    
     try {
+        const { id } = req.params
         let recipeById = await getRecipeById(id)
         res.status(200).send(recipeById)
     }   catch (error) {
