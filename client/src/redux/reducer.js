@@ -4,8 +4,7 @@ import {
     GET_RECIPE_BY_ID,
     CREATE_RECIPE,
     FILTER_MY_RECIPES,
-    SORT_BY_NAME,
-    SORT_BY_SCORE,
+    SORT_BY_ORDER,
     GET_DIETS,
     FILTER_BY_DIET 
 } from "./actions";
@@ -14,7 +13,7 @@ import {
 const initialState = {
     recipes: [],
     allRecipes: [],
-    recipeDetail: {},
+    recipeDetail: [],
     diets: []
 };
 
@@ -42,69 +41,70 @@ const rootReducer = (state = initialState, action) => {
 
         case CREATE_RECIPE:
             return {
-                ...state,
-                recipes: [...state.recipes, action.payload]
+                ...state
             }
 
         // FILTERS / SORTS FOR RECIPES
         case FILTER_MY_RECIPES:
-            const allRecipes = state.allRecipes
+            const allRecipesByCreation = state.allRecipes
             const createdFilter =
-                action.payload === "created"
-                    ? allRecipes.filter((r) => r.myRecipe)
-                    : allRecipes.filter((r) => !r.myRecipe)
+                action.payload === "API" // Aplico un condicional que me traiga todas las recetas de la api si la opción elegida es "API"
+                    ? allRecipesByCreation.filter(r => typeof(r.id) === "number") // Si la opción es "API", el filtro busca las recetas cuyo ID sea un número (como aparecen los IDs de la api)
+                    : allRecipesByCreation.filter(r => typeof(r.id) === "string") // De lo contrario, el filtro busca las recetas cuyo ID sea un string (como aparecen en las recetas creadas en el modelo usando UUID)
             return {
                 ...state,
-                recipes: action.payload === "all" ? state.allRecipes : createdFilter
+                recipes: action.payload === "All" ? state.allRecipes : createdFilter // Aplico un último condicional para el caso de que quiera todas las recetas
             }
 
-        case SORT_BY_NAME:
-            let sortByName = []
+        case SORT_BY_ORDER:
+            let sortedRecipes = []
             switch (action.payload) {
-                case "asc":
-                    sortByName = state.recipes.sort(function(a, b) {
-                    if (a.name > b.name) return 1
-                    if (b.name > a.name) return -1
-                    return 0
-                    })
-                    return {
-                        ... state,
-                        recipes: sortByName
-                    }
-                case "desc":
-                    sortByName = state.recipes.sort(function(a, b) {
-                        if (a.name > b.name) return -1
-                        if (b.name > a.name) return 1
+                // SORT BY NAME
+                case "AlphAsc": // Ascendiente
+                    sortedRecipes = state.recipes.sort(function(a, b) {
+                        if (a.name > b.name) return 1
+                        if (b.name > a.name) return -1 
                         return 0
                     })
                     return {
-                        ... state,
-                        recipes: sortByName
+                        ...state,
+                        recipes: sortedRecipes
                     }
-            }
+                case "AlphDesc": // Descendiente
+                    sortedRecipes = state.recipes.sort(function(a, b) { 
+                        if (a.name > b.name) return -1 
+                        if (b.name > a.name) return 1 
+                        return 0
+                    })  
+                    return {
+                        ...state,
+                        recipes: sortedRecipes
+                    }
 
-        case SORT_BY_SCORE:
-            let sortByScore = []
-            switch (action.payload) {
-                case "ascScore":
-                    sortByScore = state.recipes.sort(function(a, b) {
-                        if (a.healthScore > b.healthScore) return 1; 
-                        if (b.healthScore > a.healthScore) return -1; 
-                        return 0;
-                    });
+                // SORT BY SCORE
+                case "ScoreAsc":
+                    sortedRecipes = state.recipes.sort(function(a, b) {
+                        if (a.healthScore > b.healthScore) return 1
+                        if (b.healthScore > a.healthScore) return -1
+                        return 0
+                    })
                     return {
-                        ... state,
-                        recipes: sortByScore
+                        ...state,
+                        recipes: sortedRecipes
                     }
-                case "descScore":
-                    sortByScore = state.recipes.sort(function(a, b) { 
-                        if (a.healthScore > b.healthScore) return -1; 
-                        if (b.healthScore > a.healthScore) return 1; 
-                        return 0;
-                    });   
+                case "ScoreDesc":
+                    sortedRecipes = state.recipes.sort(function(a, b) { 
+                        if (a.healthScore > b.healthScore) return -1
+                        if (b.healthScore > a.healthScore) return 1
+                        return 0
+                    })   
                     return {
-                        ... state,
-                        recipes: sortByScore
+                        ...state,
+                        recipes: sortedRecipes
+                    }
+                default:
+                    return {
+                        ...state
                     }
             }
 
@@ -117,16 +117,17 @@ const rootReducer = (state = initialState, action) => {
 
         // FILTER FOR DIETS
         case FILTER_BY_DIET:
-            const allRecipesByDiet = state.allRecipes
-            const dietFilter =
-                action.payload === ""
+            const allRecipesByDiet = state.allRecipes 
+            const dietFilter = 
+                action.payload === "All" // Aplico un condicional que me traiga todas las recetas si la opción elegida es "All"
                     ? allRecipesByDiet
-                    : allRecipesByDiet.filter((r) => r.diets.includes(action.payload))
+                    : allRecipesByDiet.filter((r) => r.diets.includes(action.payload)) // De lo contrario aplico un filtro para que solo traiga las recetas cuyas diets sean iguales a las recibidas por payload
             return {
                 ...state,
                 recipes: dietFilter
             }
 
+        // DEFAULT CASE
         default: 
             return {
                 ...state
