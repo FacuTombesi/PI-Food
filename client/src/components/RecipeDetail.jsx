@@ -77,6 +77,8 @@ const DetailPage = styled.div `
     background-image: url(${detailBg});
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
 `
