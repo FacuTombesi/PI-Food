@@ -34,10 +34,10 @@ const About = (props) => {
                 </AboutPi>
                 <LinkCont>
                     <ExtLink>
-                        <a href="https://www.linkedin.com/in/facundotombesi/" target="_blank">
+                        <a href="https://www.linkedin.com/in/facundotombesi/" target="_blank" rel="noreferrer">
                             <img src={linkedin} alt="LinkedIN logo" width="150px" />
                         </a>
-                        <a href="https://github.com/FacuTombesi" target="_blank">
+                        <a href="https://github.com/FacuTombesi" target="_blank" rel="noreferrer">
                             <img src={github} alt="GitHub logo" width="150px" />
                         </a>
                     </ExtLink>
