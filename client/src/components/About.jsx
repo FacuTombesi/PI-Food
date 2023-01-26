@@ -124,7 +124,7 @@ const LinkCont = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 8%;
+    margin-top: 5%;
     margin-bottom: 5%;
 `
 
@@ -132,6 +132,7 @@ const ExtLink = styled.div `
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 3%;
 `
 
 const BackBtn = styled.button `
