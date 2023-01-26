@@ -29,8 +29,13 @@ module.exports = (sequelize) => {
       }
     },
     steps: {
-      type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING)),
+      type: DataTypes.STRING,
       allowNull: false
+    },
+    createdByUser: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, { timestamps: false });
 };
