@@ -1,20 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import titleImg from "../img/foodpiTitle.png";
 import image1 from "../img/bg1.jpg";
 import image2 from "../img/bg2.jpg";
 import image3 from "../img/bg3.jpg";
 import image4 from "../img/bg4.jpg";
 
-const LandingPage = () => {
+const LandingPage = (props) => {
     return (
         <BgContainer>
             <TitleContainer>
-                <h1> Welcome to my </h1>
-                <h2> Food PI </h2>
-                <h3> by Facundo Tombesi </h3>
+                <Subtitles> Welcome to my </Subtitles>
+                <img src={titleImg} alt="title" width="300px" />
+                <Subtitles> by Facundo Tombesi </Subtitles>
                 <Link to="/home">
-                    <button> ENTER </button>
+                    <EnterBtn> ENTER </EnterBtn>
                 </Link>
             </TitleContainer>
         </BgContainer>
@@ -30,25 +31,51 @@ const randomIndex = Math.floor(Math.random() * pictureArray.length);
 const selectedPicture = pictureArray[randomIndex];
 
 const BgContainer = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
-    margin: 0px;
     background-image: url(${selectedPicture});
     background-repeat: no-repeat;
+    /* background-position: 0%; */
     background-size: cover;
+    /* background-size: 100% auto; */
+    height: 100vh;
+    margin:0%;
+    padding-top: 0%;   
+    padding-bottom: 0%; 
 `
 
 const TitleContainer = styled.div`
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
     float: right;
     /* margin-right: 0%; */
-    flex-direction: column;
-    margin: 0px;
+    /* margin: 0px; */
     background-color: white;
+    width: 40%;
+    height: 100%;
+    border-radius: 30px;
+`
+
+const EnterBtn = styled.button`
+    background-color: #F18817;
+    border-radius: 5px;
+    border-color: #F18817;
+    color: white;
+    font-weight: 600;
+    font-size: 100%;
+    padding: 10% 25%;
+    &:hover {
+        color: black;
+        background-color: #F1E217;
+        border-color: #F1E217;
+    }
+`
+
+const Subtitles = styled.h2`
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    font-size: 140%;
 `
 
 export default LandingPage;
