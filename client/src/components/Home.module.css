@@ -1,0 +1,119 @@
+.home {
+    background-image: url("../img/bg3.jpg"); 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /* display: flex;
+    flex-direction: row; */
+} 
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 0px;
+    background-color: white;
+    width: 30%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.searchFilter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filtersNames {
+    color: #F18817;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 90%;
+    font-weight: 500;
+}
+
+.filter1, .filter2, .filter3{
+    width: 100%;
+    border: 1px solid #F18817;
+    border-radius: 3px;
+    color: rgb(90, 90, 90);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 110%;
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+.getAllBtn {
+    background-color: #F18817;
+    border-radius: 5px;
+    border-color: #F18817;
+    color: white;
+    font-weight: 600;
+    font-size: 80%;
+    padding: 1% 2%;
+    margin-top: 5%;
+}
+
+.getAllBtn:hover{
+    color: black;
+    background-color: #F1E217;
+    border-color: #F1E217;  
+}
+
+.rContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    right: 0px;
+    width: 70%;
+    height: 100%;
+}
+
+.recipes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;   
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.lContainer {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20%;
+}
+
+.loaderGif {
+    margin-top: 20%;
+    width: 200px;
+}
+
+.loader {
+    color: #F18817;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 180%;
+    font-weight: 600;
+}
+
+.eContainer {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20%;
+}
+
+.error{
+    color: #F18817;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 180%;
+    font-weight: 600;
+    padding-inline: 30px 30px;
+}
