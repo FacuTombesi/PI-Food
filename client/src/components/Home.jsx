@@ -77,7 +77,7 @@ const Home = (props) => {
 
           {/* SORTS */}
           <span className={styles.filtersNames}> Sort by: </span>
-          <select className={styles.filter1} onChange={(e) => {handlerSort(e)}} defaultValue="NoSort">
+          <select className={styles.filter1} onChange={(e) => {handlerSort(e)}}>
             <option value="NoSort"> No order </option>
             <option value="AlphAsc"> A - Z </option>
             <option value="AlphDesc"> Z - A </option>
@@ -87,7 +87,7 @@ const Home = (props) => {
 
           {/* FILTERS */}
           <span className={styles.filtersNames}> Diet type: </span>
-          <select className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}} defaultValue="All">
+          <select className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}}>
             <option value="All"> All diets </option>
             <option value="gluten free"> Gluten Free </option>
             <option value="ketogenic"> Ketogenic </option>
@@ -102,9 +102,8 @@ const Home = (props) => {
           </select>
 
           <span className={styles.filtersNames}> Display: </span>
-          <select className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}} defaultValue="All">
+          <select className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}}>
             <option value="All"> All recipes </option>
-            {/* <option value="Api"> Default recipes </option> */}
             <option value="Created"> My recipes </option>
           </select>
 
