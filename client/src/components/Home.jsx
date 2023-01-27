@@ -125,14 +125,14 @@ const Home = (props) => {
                 currentRecipe[0]?
                 currentRecipe.map(recipe => {
                   return (
-                    <div>
+                    <div key={recipe.id}>
                       <RecipeCard 
                         id={recipe.id}
                         name = {recipe.name}
                         image = {recipe.image ? recipe.image : defaultImg}
                         diets = {recipe.diets}
                         healthScore = {recipe.healthScore}
-                        key = {recipe.id}
+                        // key = {recipe.id}
                       />
                     </div>
                   )
