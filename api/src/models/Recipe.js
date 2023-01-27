@@ -31,11 +31,6 @@ module.exports = (sequelize) => {
     steps: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    createdByUser: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
     }
   }, { timestamps: false });
 };
