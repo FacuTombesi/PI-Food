@@ -34,12 +34,16 @@ const About = (props) => {
                 </AboutPi>
                 <LinkCont>
                     <ExtLink>
-                        <a href="https://www.linkedin.com/in/facundotombesi/" target="_blank" rel="noreferrer">
-                            <img src={linkedin} alt="LinkedIN logo" width="150px" />
-                        </a>
-                        <a href="https://github.com/FacuTombesi" target="_blank" rel="noreferrer">
-                            <img src={github} alt="GitHub logo" width="150px" />
-                        </a>
+                        <ExtLinkCont>
+                            <a href="https://www.linkedin.com/in/facundotombesi/" target="_blank" rel="noreferrer">
+                                <img src={linkedin} alt="LinkedIN logo" width="150px" />
+                            </a>
+                        </ExtLinkCont>
+                        <ExtLinkCont>
+                            <a href="https://github.com/FacuTombesi" target="_blank" rel="noreferrer">
+                                <img src={github} alt="GitHub logo" width="150px" />
+                            </a>
+                        </ExtLinkCont>
                     </ExtLink>
                     <Link to="/home">
                         <BackBtn> Back to the recipe book </BackBtn>
@@ -102,7 +106,7 @@ const AboutPi = styled.div `
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-left: 5%;
 `
 
@@ -124,7 +128,7 @@ const LinkCont = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-bottom: 5%;
 `
 
@@ -132,7 +136,11 @@ const ExtLink = styled.div `
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 3%;
+    margin-bottom: 8%;
+`
+
+const ExtLinkCont = styled.div `
+    padding-inline: 70px;
 `
 
 const BackBtn = styled.button `
