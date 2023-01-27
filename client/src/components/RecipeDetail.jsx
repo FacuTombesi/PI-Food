@@ -25,7 +25,7 @@ const RecipeDetail = (props) => {
             .then((data) => setRecipe(data))
             .catch((error) => window.alert(`${error.message}`))
         return () => setRecipe({})
-    }, [])
+    }, [id])
 
     return (
         <DetailPage>
