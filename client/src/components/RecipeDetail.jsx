@@ -53,7 +53,12 @@ const RecipeDetail = (props) => {
                                 <InfoName> Health Score: </InfoName>
                                 <InfoContent> { recipeDetail[0].healthScore } </InfoContent>
                                 <InfoName> Diet type: </InfoName>
-                                <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent>
+                                {
+                                    recipeDetail[0].diets.length?
+                                        <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> :
+                                        <InfoContent> There are no diets for this recipe yet </InfoContent>
+                                }
+                                {/* <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> */}
                                 <InfoName> Steps: </InfoName>
                                 <InfoContent> { recipeDetail[0].steps } </InfoContent>
                                 <Link to="/home">
