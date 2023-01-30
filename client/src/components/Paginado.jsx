@@ -1,17 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Paginado = ({ recipesPerPage, allRecipes, paginacion })  =>{
-    
-    const pageNumbers = [];
+const Paginado = ({ recipesPerPage, allRecipes, currentPage, paginacion })  =>{
+    const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(allRecipes / recipesPerPage); i++) { 
-        pageNumbers.push(i);
+        pageNumbers.push(i)
     } 
+
+    const handlePrev = (e) => {
+        e.preventDefault()
+        paginacion(currentPage - 1)
+    }
+
+    const handleNext = (e) => {
+        e.preventDefault()
+        paginacion(currentPage + 1)
+    }
 
     return (
         <PagContainer>
             <PageList>
+                <PageNum>
+                    <PageBtn onClick={handlePrev}  disabled={currentPage === pageNumbers[0]}> Prev </PageBtn>
+                </PageNum>
                 {
                     pageNumbers.map((num) => {
                         return (
@@ -21,6 +33,9 @@ const Paginado = ({ recipesPerPage, allRecipes, paginacion })  =>{
                         )
                     }) 
                 }
+                <PageNum>
+                    <PageBtn onClick={handleNext} disabled={currentPage === pageNumbers[pageNumbers.length - 1]}> Next </PageBtn>
+                </PageNum>
             </PageList>
         </PagContainer>
     )
@@ -65,6 +80,11 @@ const PageBtn = styled.button`
         color: black;
         background-color: #F1E217;
         border: 2px solid black;
+    }
+    &:disabled {
+        border: 1px solid #e9ccae;
+        background-color: #999999;
+        color: white;
     }
 `
 
