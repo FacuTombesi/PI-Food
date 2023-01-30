@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const RecipeCard = ({id, name, image, healthScore, diets }) => {
+export const RecipeCard = ({ id, name, image, healthScore, diets }) => {
     return (
         <RecipeContainer>
             <NameImageContainer>
