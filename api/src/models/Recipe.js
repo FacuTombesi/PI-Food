@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     summary: {
       type: DataTypes.STRING,
@@ -29,8 +29,7 @@ module.exports = (sequelize) => {
       }
     },
     steps: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     }
   }, { timestamps: false });
 };
