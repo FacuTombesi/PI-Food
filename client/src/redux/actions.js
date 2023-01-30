@@ -103,7 +103,7 @@ const getRecipeById = (id) => {
 };
 
 // SYNC VERSION WITH FETCH
-// export const getRecipeById = (id) => dispatch => {
+// const getRecipeById = (id) => dispatch => {
 //     return (
 //         fetch(`http://localhost:3001/recipes/&{id}`)
 //         .then(response => response.json())
