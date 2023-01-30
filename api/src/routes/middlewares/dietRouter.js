@@ -15,5 +15,4 @@ dietRouter.get("/", async (req, res) => {
     }
 });
 
-
 module.exports = dietRouter;

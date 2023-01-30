@@ -18,23 +18,6 @@ recipeRouter.get("/", async (req, res) => {
 });
 
 recipeRouter.get("/:id", async (req, res) => {
-    // try {
-    //     if (id.includes("-")) {
-    //         const recipeFromDb = await Recipe.findOne({ 
-    //             where: { id },
-    //             include: { model: Diet }
-    //         })
-    //         if (!recipeFromDb) throw Error(`No recipe found with the ID: ${id}`)
-    //         return res.status(200).json(recipeFromDb)
-    //     }   else {
-    //         const recipeFromApi = await getRecipeById(id)
-    //         if (!recipeFromApi) throw Error(`No recipe found with the ID: ${id}`)
-    //         res.status(200).json(recipeFromApi)
-    //     }
-    // }   catch (error) {
-    //     res.status(404).send(error)
-    // }
-    
     try {
         const { id } = req.params
         let recipeById = await getRecipeById(id)
@@ -53,6 +36,5 @@ recipeRouter.post("/create", async (req, res) => {
         res.status(400).send(error.message)
     }
 });
-
 
 module.exports = recipeRouter;
