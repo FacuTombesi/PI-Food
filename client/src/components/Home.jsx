@@ -36,12 +36,12 @@ const Home = (props) => {
     dispatch(getRecipes())
   }, [dispatch]) // El arreglo del segundo parámetro ( [dispatch] ) se usa cuando querés que el componente se monte siempre que pase algo antes, que dependa de algo para montarse
  
-  const handlerClick = (e) => {
-    e.preventDefault() // Cada vez que se cargue la página, se vuelven a montar las recetas para evitar que se rompa todo
-    setCurrentPage(1)
-    setOrder('')
-    dispatch(getRecipes())
-  }
+  // const handlerClick = (e) => {
+  //   e.preventDefault() // Cada vez que se cargue la página, se vuelven a montar las recetas para evitar que se rompa todo
+  //   setCurrentPage(1)
+  //   setOrder('')
+  //   dispatch(getRecipes())
+  // }
 
   // FILTERS
   const handlerFilterByDiet = (e) => { 
@@ -58,6 +58,16 @@ const Home = (props) => {
     dispatch(sort(e.target.value))
     setCurrentPage(1)
     setOrder(e.target.value)
+  }
+
+  const resetFilters = (e) => {
+    e.preventDefault()
+    document.getElementById("filter1").value = "NoSort"
+    document.getElementById("filter2").value = "All"
+    document.getElementById("filter3").value = "All"
+    setCurrentPage(1)
+    setOrder('')
+    dispatch(getRecipes())
   }
 
   return (
@@ -78,7 +88,7 @@ const Home = (props) => {
 
           {/* SORTS */}
           <span className={styles.filtersNames}> Sort by: </span>
-          <select className={styles.filter1} onChange={(e) => {handlerSort(e)}}>
+          <select id="filter1" className={styles.filter1} onChange={(e) => {handlerSort(e)}}>
             <option value="NoSort"> No order </option>
             <option value="AlphAsc"> A - Z </option>
             <option value="AlphDesc"> Z - A </option>
@@ -88,7 +98,7 @@ const Home = (props) => {
 
           {/* FILTERS */}
           <span className={styles.filtersNames}> Diet type: </span>
-          <select className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}}>
+          <select id="filter2" className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}}>
             <option value="All"> All diets </option>
             <option value="gluten free"> Gluten Free </option>
             <option value="ketogenic"> Ketogenic </option>
@@ -103,13 +113,16 @@ const Home = (props) => {
           </select>
 
           <span className={styles.filtersNames}> Display: </span>
-          <select className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}}>
+          <select id="filter3" className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}}>
             <option value="All"> All recipes </option>
             <option value="Created"> My recipes </option>
           </select>
 
+          {/* BOTÓN PARA RESETEAR FILTROS */}
+          <button className={styles.getAllBtn} onClick={resetFilters}> Reset filters </button>
+
           {/* BOTÓN PARA TRAER TODAS LAS RECETAS */}
-          <button className={styles.getAllBtn} onClick={(e) => {handlerClick(e)}}> Reload the recipes </button>
+          {/* <button className={styles.getAllBtn} onClick={(e) => {handlerClick(e)}}> Reload the recipes </button> */}
 
         </div> {/* searchFilter */}
 
