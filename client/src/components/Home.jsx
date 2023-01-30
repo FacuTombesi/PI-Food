@@ -150,6 +150,7 @@ const Home = (props) => {
             <Paginado 
               recipesPerPage={recipesPerPage}
               allRecipes={allRecipes.length}
+              currentPage={currentPage}
               paginacion={paginacion}       
             />
 
