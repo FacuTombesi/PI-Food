@@ -15,10 +15,9 @@ export const RecipeCard = ({id, name, image, healthScore, diets }) => {
                 <InfoName> Diet type: </InfoName> 
                 {
                     diets.length?
-                        <InfoContent> { diets.charAt(0).toUpperCase() + diets.slice(1) } </InfoContent> :
+                        <InfoContent> {diets.charAt(0).toUpperCase() + diets.slice(1)} </InfoContent> :
                         <InfoContent> There are no diets for this recipe yet </InfoContent>
                 }
-                {/* <InfoContent> {diets.charAt(0).toUpperCase() + diets.slice(1)} </InfoContent> */}
             </InfoContainer>
             <InfoContainer>
                 <InfoName> Health Score: </InfoName>

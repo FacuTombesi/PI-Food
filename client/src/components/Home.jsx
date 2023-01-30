@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from "react-router-dom";
-import { getRecipes, filterMyRecipes, filterByDiet, sort, getDiets } from "../redux/actions"; 
+import { getRecipes, filterMyRecipes, filterByDiet, sort } from "../redux/actions"; 
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
@@ -18,7 +18,6 @@ const Home = (props) => {
 
   // mapStateToProps
   const allRecipes = useSelector((state) => state.recipes)
-  // const allDiets = useSelector(state => state.diets)
 
   // paginado
   const [/*order*/, setOrder] = useState('') // order es un estado vacío, que sirve para que cuando seteo la página, me modifique el estado local y se renderice
@@ -34,7 +33,6 @@ const Home = (props) => {
 
   useEffect(() => {
     dispatch(getRecipes())
-    dispatch(getDiets())
   }, [dispatch]) // El arreglo del segundo parámetro ( [dispatch] ) se usa cuando querés que el componente se monte siempre que pase algo antes, que dependa de algo para montarse
  
   const handlerClick = (e) => {
@@ -98,7 +96,7 @@ const Home = (props) => {
             <option value="paleolithic"> Paleo </option>
             <option value="primal"> Primal </option>
             <option value="fodmap friendly"> Low FODMAP </option>            
-            <option value="whole 30"> Whole 30 </option>            
+            <option value="whole 30"> Whole 30 </option>
           </select>
 
           <span className={styles.filtersNames}> Display: </span>

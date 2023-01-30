@@ -13,12 +13,15 @@ import styled from "styled-components";
 const RecipeDetail = (props) => {
     // const dispatch = useDispatch()
     // const recipeDetail = useSelector((state) => state.recipeDetail)
+
     const { id } = useParams()
     const [recipeDetail, setRecipe] = useState({})
     
+    // Este método funciona pero tarda mucho en renderizar los nuevos datos
     // useEffect(() => {
     //     dispatch(getRecipeById(props.match.params.id))
-    // }, [dispatch])
+    // }, [dispatch, props.match.params.id])
+
     useEffect(() => {
         fetch(`http://localhost:3001/recipes/${id}`)
             .then((response) => response.json())
@@ -53,9 +56,18 @@ const RecipeDetail = (props) => {
                                 <InfoName> Health Score: </InfoName>
                                 <InfoContent> { recipeDetail[0].healthScore } </InfoContent>
                                 <InfoName> Diet type: </InfoName>
+                                {/* {
+                                    recipeDetail[0].diets?.map((d) => {
+                                        if (d.diet) { 
+                                            return <InfoContent> { d.diets.name } </InfoContent>
+                                        }   else {
+                                            return <InfoContent> { d } </InfoContent>
+                                        }   
+                                    })
+                                } */}
                                 {
                                     recipeDetail[0].diets.length?
-                                        <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> :
+                                        <InfoContent> { recipeDetail[0].diets } </InfoContent> :
                                         <InfoContent> There are no diets for this recipe yet </InfoContent>
                                 }
                                 {/* <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> */}
