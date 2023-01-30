@@ -33,7 +33,9 @@ const RecipeDetail = (props) => {
     return (
         <DetailPage>
             <Header>
-                <img src={titleImg} alt="title" width="140px" />
+                <Link to="/">
+                    <img src={titleImg} alt="title" width="140px" />
+                </Link>
                 <NavBar />
                 
             </Header>

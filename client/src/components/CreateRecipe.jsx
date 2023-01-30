@@ -98,7 +98,9 @@ const CreateRecipe = (props) => {
     return (
         <div className={styles.createPage}>
             <div className={styles.header}>
-                <img src={titleImg} alt="title" width="140px" />
+                <Link to="/">
+                    <img src={titleImg} alt="title" width="140px" />
+                </Link>
                 <NavBar />
                 <Link to="/home">
                     <button className={styles.backBtn}> Return to Home </button>

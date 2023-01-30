@@ -11,6 +11,7 @@ import styles from "./Home.module.css";
 import defaultImg from "../img/defaultImg.jpg";
 import titleImg from "../img/foodpiTitle.png";
 import loader from "../img/loader.gif";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   // mapDispatchToProps
@@ -64,7 +65,9 @@ const Home = (props) => {
 
       <div className={styles.header}>
 
-        <img src={titleImg} alt="title" width="140px" />
+        <Link to="/">
+          <img src={titleImg} alt="title" width="140px" />
+        </Link>
 
         <NavBar />
 

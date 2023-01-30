@@ -12,7 +12,9 @@ const About = (props) => {
     return (
         <AboutPage>
             <Header>
-                <img src={titleImg} alt="title" width="140px" />
+                <Link to="/">
+                    <img src={titleImg} alt="title" width="140px" />
+                </Link>
                 <NavBar />
                 
             </Header>
