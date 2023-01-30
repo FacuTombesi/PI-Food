@@ -175,7 +175,7 @@ const CreateRecipe = (props) => {
                                         id="url"
                                         name="image"
                                         placeholder="Tell us where to find your image ( write an URL )"
-                                        value={input.image.toString()}
+                                        value={input.image}
                                         onChange={(e) => handleInputChange(e)}           
                                     />
                                     {/* <span className={styles.imageOpt}> or </span> */}
