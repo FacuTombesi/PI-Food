@@ -105,7 +105,7 @@ const getRecipeById = (id) => {
 // SYNC VERSION WITH FETCH
 // const getRecipeById = (id) => dispatch => {
 //     return (
-//         fetch(`http://localhost:3001/recipes/&{id}`)
+//         fetch(`http://localhost:3001/recipes/${id}`)
 //         .then(response => response.json())
 //         .then(data => {
 //             dispatch({ type: GET_RECIPE_BY_ID, payload: data})
