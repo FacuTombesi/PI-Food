@@ -27,7 +27,12 @@ const Paginado = ({ recipesPerPage, allRecipes, currentPage, paginacion })  =>{
                 {
                     pageNumbers.map((num) => {
                         return (
-                            <PageNum key={num} onClick={() => paginacion(num)} id={num}>
+                            <PageNum 
+                                key={num} 
+                                active={num === currentPage}
+                                onClick={() => paginacion(num)} 
+                                id={num}
+                            >
                                 <PageBtn> {num} </PageBtn>
                             </PageNum>
                         )
@@ -64,8 +69,10 @@ const PageNum = styled.li`
 `
 
 const PageBtn = styled.button`
-    background-color: #F18817;
-    border: 1px solid #F18817;
+    background-color: ${(props) => (props.active ? "#F1E217" : "#F18817")};
+    color: ${(props) => (props.active ? "#000000" : "#ffffff")};
+    /* background-color: #F18817;
+    border: 1px solid #F18817; */
     border-radius: 2px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 100%;
