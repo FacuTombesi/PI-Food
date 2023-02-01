@@ -26,7 +26,7 @@ const validation = (input, recipes) => {
     else if (!input.healthScore) errors.healthScore = "Please tell us how healthy (or unhealthy) it is"
     else if (!scoreRegex.test(input.healthScore)) errors.healthScore = "Health Score must be a number"
     else if (input.healthScore < 0 || input.healthScore > 100) errors.healthScore = "The score must be between 0 and 100"
-    //ERRORS FOR IMAGE
+    // ERRORS FOR IMAGE
     else if (!imageRegex.test(input.image)) errors.image = "Invalid URL. An image is optional"
     return errors
 };
@@ -219,7 +219,7 @@ const CreateRecipe = (props) => {
                                 {/* { errors.image && <p className={styles.inputError}>{errors.image}</p> } */}
                             </div>
                             <div className={styles.btnCont}>
-                                <button className={styles.createBtn} type="submit" disabled={!input.name || !input.summary || !input.healthScore}> CREATE </button>
+                                <button className={styles.createBtn} type="submit" disabled={errors.name || errors.summary || errors.healthScore}> CREATE </button>
                             </div>
                         </form>
                     </div> {/* Form Container */}
