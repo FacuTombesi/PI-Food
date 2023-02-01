@@ -76,7 +76,12 @@ const RecipeDetail = (props) => {
                                 }
                                 {/* <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> */}
                                 <InfoName> Steps: </InfoName>
-                                <InfoContent> { recipeDetail[0].steps } </InfoContent>
+                                {/* <InfoContent> { recipeDetail[0].steps } </InfoContent> */}
+                                {
+                                    recipeDetail[0].steps
+                                        ? <InfoContent> { recipeDetail[0].steps } </InfoContent>
+                                        : <InfoContent> This recipe has no steps </InfoContent>
+                                }
                                 <Link to="/home">
                                     <BackBtn> Back to the recipe book </BackBtn>
                                 </Link>
