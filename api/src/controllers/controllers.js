@@ -1,13 +1,13 @@
-// const { API_KEY } = process.env;
+const { API_KEY } = process.env;
 const axios = require("axios");
 const { Recipe, Diet } = require("../db");
 
 // -------------------- GETTING AND MERGING DATA FROM API AND DATABASE -------------------- 
 const getDataFromApi = async () => {
-    // const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+    const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
 
     // Api creada a partir de la data de la Api de spoonacular para evitar límite de request a la Api
-    const response = await axios.get("https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5")
+    // const response = await axios.get("https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5")
     // console.log(response)
     const dataFromApi = await response.data.results.map(recipe => {
         return {
