@@ -25,6 +25,27 @@ const getDataFromApi = async () => {
     return dataFromApi
 };
 
+// VERSIÓN SYNC
+// const getDataFromApi = () => {
+//     return fetch("https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5")
+//       .then(response => response.json())
+//       .then(data => {
+//         return data.results.map(recipe => {
+//           return {
+//             id: recipe.id,
+//             name: recipe.title,
+//             image: recipe.image,
+//             summary: recipe.summary.replace(/<[^>]*>?/g, ""),
+//             healthScore: recipe.healthScore,
+//             steps: recipe.analyzedInstructions[0]?.steps.map((r) => {
+//               return r.step
+//             }),
+//             diets: recipe.diets.join(", ")
+//           }
+//         })
+//       })
+//   };
+
 const getDataFromDb = () => {
     const dataFromDb = Recipe.findAll({
         include: {
