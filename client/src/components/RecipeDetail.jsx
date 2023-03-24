@@ -1,10 +1,6 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
-// import { useEffect } from "react";
 import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import getRecipeById from "../redux/actions"; 
 import NavBar from "./NavBar";
 import defaultImg from "../img/defaultImg.jpg";
 import detailBg from "../img/detailBg.jpg";
@@ -13,16 +9,8 @@ import loader from "../img/loader.gif";
 import styled from "styled-components";
 
 const RecipeDetail = (props) => {
-    // const dispatch = useDispatch()
-    // const recipeDetail = useSelector((state) => state.recipeDetail)
-
     const { id } = useParams()
     const [recipeDetail, setRecipe] = useState({})
-    
-    // Este método funciona pero tarda mucho en renderizar los nuevos datos
-    // useEffect(() => {
-    //     dispatch(getRecipeById(props.match.params.id))
-    // }, [dispatch, props.match.params.id])
 
     useEffect(() => {
         fetch(`http://localhost:3001/recipes/${id}`)
@@ -39,9 +27,7 @@ const RecipeDetail = (props) => {
                     <img src={titleImg} alt="title" width="140px" />
                 </Link>
                 <NavBar />
-                
             </Header>
-
             <DetailCont>
                 {
                     recipeDetail[0]? (
@@ -60,23 +46,12 @@ const RecipeDetail = (props) => {
                                 <InfoName> Health Score: </InfoName>
                                 <InfoContent> { recipeDetail[0].healthScore } </InfoContent>
                                 <InfoName> Diet type: </InfoName>
-                                {/* {
-                                    recipeDetail[0].diets?.map((d) => {
-                                        if (d.diet) { 
-                                            return <InfoContent> { d.diets.name } </InfoContent>
-                                        }   else {
-                                            return <InfoContent> { d } </InfoContent>
-                                        }   
-                                    })
-                                } */}
                                 {
                                     recipeDetail[0].diets.length?
                                         <InfoContent> { recipeDetail[0].diets } </InfoContent> :
                                         <InfoContent> There are no diets for this recipe yet </InfoContent>
                                 }
-                                {/* <InfoContent> { recipeDetail[0].diets.charAt(0).toUpperCase() + recipeDetail[0].diets.slice(1) } </InfoContent> */}
                                 <InfoName> Steps: </InfoName>
-                                {/* <InfoContent> { recipeDetail[0].steps } </InfoContent> */}
                                 {
                                     recipeDetail[0].steps
                                         ? <InfoContent> { recipeDetail[0].steps } </InfoContent>
@@ -107,6 +82,10 @@ const DetailPage = styled.div `
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `
 
 const Header = styled.div `
@@ -120,6 +99,15 @@ const Header = styled.div `
     width: 30%;
     height: 100%;
     border-radius: 30px;
+
+    @media only screen and (max-width: 600px) {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-radius: 0px;
+        margin-bottom: 5%;
+        padding: 5% 0px;
+    }
 `
 
 const DetailCont = styled.div `
@@ -135,6 +123,16 @@ const DetailCont = styled.div `
     margin-top: 2%;
     margin-bottom: 2%;
     padding-inline: 25px 25px;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        margin-top: 0;
+        margin-bottom: 5%;
+        border-radius: 0px;
+        padding: 10px;
+    }
 `
 
 const TitleImage = styled.div `
@@ -143,6 +141,10 @@ const TitleImage = styled.div `
     align-items: center;
     margin-top: 10px;
     margin-bottom: 20px;
+
+    @media only screen and (max-width: 600px) {
+        margin-bottom: 10px;
+    }
 `
 
 const RecipeName = styled.h1 `
@@ -152,6 +154,10 @@ const RecipeName = styled.h1 `
     font-size: 130%;
     font-weight: 600;
     text-align: center;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 110%;
+    }
 `
 
 const InfoBox = styled.div `
@@ -159,6 +165,11 @@ const InfoBox = styled.div `
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
+
+    @media only screen and (max-width: 600px) {
+        margin-bottom: 10px;
+        padding: 5%;
+    }
 `
 
 const InfoName = styled.h3 `
@@ -167,6 +178,10 @@ const InfoName = styled.h3 `
     font-weight: 400;
     margin-top: 0px;
     margin-bottom: -10px;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 90%;
+    }
 `
 
 const InfoContent = styled.p `
@@ -175,6 +190,10 @@ const InfoContent = styled.p `
     font-size: 110%;
     font-weight: 500;
     text-align: left;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 100%;
+    }
 `
 
 const BackBtn = styled.button `
@@ -191,6 +210,11 @@ const BackBtn = styled.button `
         background-color: #F1E217;
         border-color: #F1E217; 
     }
+
+    @media only screen and (max-width: 600px) {
+        font-size: 90%;
+        padding: 2% 5%;
+    }
 `
 
 const LoaderCont = styled.div `
@@ -201,11 +225,20 @@ const LoaderCont = styled.div `
     flex-direction: column;
     align-items: center;
     margin: 20%;
+
+    @media only screen and (max-width: 600px) {
+        margin: 10%;
+    }
 `
 
 const LoaderGif = styled.img `
     margin-top: 20%;
     width: 200px;
+
+    @media only screen and (max-width: 600px) {
+        width: 150px;
+        margin-top: 10%;
+    }
 `
 
 const Loader = styled.p `
@@ -213,6 +246,10 @@ const Loader = styled.p `
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 180%;
     font-weight: 600;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 130%;
+    }
 `
 
 export default RecipeDetail;

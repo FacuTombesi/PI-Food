@@ -16,7 +16,6 @@ const About = (props) => {
                     <img src={titleImg} alt="title" width="140px" />
                 </Link>
                 <NavBar />
-                
             </Header>
 
             <AboutCont>
@@ -66,6 +65,10 @@ const AboutPage = styled.div `
     flex-direction: row;
     background-size: cover;
     min-height: 100vh;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `
 
 const Header = styled.div `
@@ -79,6 +82,15 @@ const Header = styled.div `
     width: 30%;
     height: 100%;
     border-radius: 30px;
+
+    @media only screen and (max-width: 600px) {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-radius: 0px;
+        margin-bottom: 5%;
+        padding: 5% 0px;
+    }
 `
 
 const AboutMe = styled.div `
@@ -87,6 +99,10 @@ const AboutMe = styled.div `
     align-items: center;
     margin-top: 5%;
     margin-inline: 5% 5%;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: row;
+    }
 `
 
 const AboutTitles = styled.h3 `
@@ -102,6 +118,10 @@ const AboutMeInfo = styled.div `
     flex-direction: column;
     align-items: flex-start;
     margin-left: 5%;
+
+    @media only screen and (max-width: 600px) {
+        margin-left: 5%;
+    }
 `
 
 const AboutPi = styled.div `
@@ -110,6 +130,11 @@ const AboutPi = styled.div `
     align-items: flex-start;
     margin-top: 3%;
     margin-left: 5%;
+
+    @media only screen and (max-width: 600px) {
+        margin-left: 5%;
+        margin-top: 0;
+    }
 `
 
 const AboutCont = styled.div `
@@ -124,6 +149,12 @@ const AboutCont = styled.div `
     margin-left: 3%;
     margin-top: 2%;
     padding-inline: 25px 25px;
+
+    @media only screen and (max-width: 600px) {
+        width: 85%;
+        margin-left: 3%;
+        margin-bottom: 5%;
+    }
 `
 
 const LinkCont = styled.div `
@@ -143,6 +174,10 @@ const ExtLink = styled.div `
 
 const ExtLinkCont = styled.div `
     padding-inline: 70px;
+
+    @media only screen and (max-width: 600px) {
+        padding-inline: 70px;
+    }
 `
 
 const BackBtn = styled.button `

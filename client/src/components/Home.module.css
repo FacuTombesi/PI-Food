@@ -4,8 +4,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    /* display: flex;
-    flex-direction: row; */
 } 
 
 .header {
@@ -22,6 +20,12 @@
 }
 
 .searchFilter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filtersCont {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -118,4 +122,53 @@
     font-size: 180%;
     font-weight: 600;
     padding-inline: 30px 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-radius: 0px;
+        margin-top: 2%;
+    }
+    
+    .searchFilter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filtersCont {
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .filter1, .filter2, .filter3 {
+        width: 80%;
+        font-size: 100%;
+    }
+    
+    .getAllBtn {
+        margin-top: 5%;
+        margin-bottom: 2%;
+        padding: 2% 4%;
+    }
+    
+    .recipes {
+        padding: 5px;
+    }
+    
+    .lContainer, .eContainer {
+        margin: 10%;
+    }
+    
+    .loaderGif {
+        margin-top: 10%;
+        width: 150px;
+    }
+    
+    .loader, .error {
+        font-size: 120%;
+        padding-inline: 10px 10px;
+    }
 }

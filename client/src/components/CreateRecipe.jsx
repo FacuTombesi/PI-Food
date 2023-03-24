@@ -121,7 +121,7 @@ const CreateRecipe = (props) => {
                                         className={styles.inputArea}
                                         type="text"
                                         placeholder="Give your recipe a name"
-                                        name="name" // Este debe llamarse igual que el que seteo en el estado, para después poder usarlo en el handleChange
+                                        name="name"
                                         value={input.name}
                                         onChange={(e) => handleInputChange(e)}
                                     />
@@ -180,16 +180,6 @@ const CreateRecipe = (props) => {
                                         value={input.image}
                                         onChange={(e) => handleInputChange(e)}           
                                     />
-                                    {/* <span className={styles.imageOpt}> or </span> */}
-                                    {/* <input 
-                                        className={styles.imageArea}
-                                        type="file"
-                                        id="file"
-                                        name="image" 
-                                        accept="image/*" 
-                                        value={input.image}
-                                        onChange={(e) => handleInputChange(e)} 
-                                    /> */}
                                 </div>
                             </div>
                             <div className={styles.inputCont}>
@@ -216,7 +206,6 @@ const CreateRecipe = (props) => {
                                 { errors.name && <p className={styles.inputError}>{errors.name}</p> }
                                 { errors.summary && <p className={styles.inputError}>{errors.summary}</p> }
                                 { errors.healthScore && <p className={styles.inputError}>{errors.healthScore}</p> }
-                                {/* { errors.image && <p className={styles.inputError}>{errors.image}</p> } */}
                             </div>
                             <div className={styles.btnCont}>
                                 <button className={styles.createBtn} type="submit" disabled={errors.name || errors.summary || errors.healthScore}> CREATE </button>

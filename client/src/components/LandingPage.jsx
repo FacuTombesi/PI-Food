@@ -33,9 +33,7 @@ const selectedPicture = pictureArray[randomIndex];
 const BgContainer = styled.div`
     background-image: url(${selectedPicture});
     background-repeat: no-repeat;
-    /* background-position: 0%; */
     background-size: cover;
-    /* background-size: 100% auto; */
     height: 100vh;
     margin:0%;
     padding-top: 0%;   
@@ -49,12 +47,18 @@ const TitleContainer = styled.div`
     justify-content: center;
     position: relative;
     float: right;
-    /* margin-right: 0%; */
-    /* margin: 0px; */
     background-color: white;
     width: 40%;
     height: 100%;
     border-radius: 30px;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: auto;
+        border-radius: 0px;
+        margin: 20% 0px;
+        padding: 5% 0px;
+    }
 `
 
 const EnterBtn = styled.button`
@@ -65,6 +69,12 @@ const EnterBtn = styled.button`
     font-weight: 600;
     font-size: 100%;
     padding: 10% 25%;
+
+    @media only screen and (max-width: 600px) {
+        padding: 6% 15%;
+        margin-bottom: 15%;
+    }
+
     &:hover {
         color: black;
         background-color: #F1E217;
@@ -76,6 +86,10 @@ const Subtitles = styled.h2`
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
     font-size: 140%;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 100%;
+    }
 `
 
 export default LandingPage;
