@@ -20,7 +20,7 @@ const About = (props) => {
 
             <AboutCont>
                 <AboutMe>
-                    <img src={myPhoto} alt="That's me!" width="200px" />
+                    <Img src={myPhoto} alt="That's me!" width="200px" />
                     <AboutMeInfo>
                         <AboutTitles> About me </AboutTitles>
                         <p> Hi! My name is Facundo Tombesi, from Argentina. By the time of writing (Friday 27 of January of 2023), I'm a Multimedia Designer and currently studying Fullstack 
@@ -68,6 +68,13 @@ const AboutPage = styled.div `
 
     @media only screen and (max-width: 600px) {
         flex-direction: column;
+    }
+`
+
+const Img = styled.img `
+    @media only screen and (max-width: 600px) {
+        visibility: hidden;
+        position: absolute;
     }
 `
 
