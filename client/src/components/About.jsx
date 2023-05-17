@@ -20,7 +20,7 @@ const About = (props) => {
 
             <AboutCont>
                 <AboutMe>
-                    <Img src={myPhoto} alt="That's me!" width="200px" />
+                    <img src={myPhoto} alt="That's me!" width="200px" />
                     <AboutMeInfo>
                         <AboutTitles> About me </AboutTitles>
                         <p> Hi! My name is Facundo Tombesi, from Argentina. By the time of writing (Friday 27 of January of 2023), I'm a Multimedia Designer and currently studying Fullstack 
@@ -68,13 +68,7 @@ const AboutPage = styled.div `
 
     @media only screen and (max-width: 600px) {
         flex-direction: column;
-    }
-`
-
-const Img = styled.img `
-    @media only screen and (max-width: 600px) {
-        visibility: hidden;
-        position: absolute;
+        align-items: center;
     }
 `
 
@@ -108,7 +102,7 @@ const AboutMe = styled.div `
     margin-inline: 5% 5%;
 
     @media only screen and (max-width: 600px) {
-        flex-direction: row;
+        flex-direction: column;
     }
 `
 
@@ -127,7 +121,7 @@ const AboutMeInfo = styled.div `
     margin-left: 5%;
 
     @media only screen and (max-width: 600px) {
-        margin-left: 5%;
+        margin-left: 0px;
     }
 `
 
@@ -158,8 +152,8 @@ const AboutCont = styled.div `
     padding-inline: 25px 25px;
 
     @media only screen and (max-width: 600px) {
-        width: 85%;
-        margin-left: 3%;
+        width: 80%;
+        margin-left: 0;
         margin-bottom: 5%;
     }
 `
@@ -177,6 +171,10 @@ const ExtLink = styled.div `
     flex-direction: row;
     align-items: center;
     margin-bottom: 8%;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `
 
 const ExtLinkCont = styled.div `
@@ -184,6 +182,7 @@ const ExtLinkCont = styled.div `
 
     @media only screen and (max-width: 600px) {
         padding-inline: 70px;
+        margin: 10px 0px;
     }
 `
 

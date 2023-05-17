@@ -71,34 +71,40 @@ const Home = (props) => {
           <SearchBar/>
           <div className={styles.filtersCont}>
             {/* SORTS */}
-            <span className={styles.filtersNames}> Sort by: </span>
-            <select id="filter1" className={styles.filter1} onChange={(e) => {handlerSort(e)}}>
-              <option value="NoSort"> No order </option>
-              <option value="AlphAsc"> A - Z </option>
-              <option value="AlphDesc"> Z - A </option>
-              <option value="ScoreAsc"> Lowest Health Score </option>
-              <option value="ScoreDesc"> Highest Health Score </option>
-            </select>
+            <div className={styles.filterType}>
+              <span className={styles.filtersNames}> Sort by: </span>
+              <select id="filter1" className={styles.filter1} onChange={(e) => {handlerSort(e)}}>
+                <option value="NoSort"> No order </option>
+                <option value="AlphAsc"> A - Z </option>
+                <option value="AlphDesc"> Z - A </option>
+                <option value="ScoreAsc"> Lowest Health Score </option>
+                <option value="ScoreDesc"> Highest Health Score </option>
+              </select>
+            </div>
             {/* FILTERS */}
-            <span className={styles.filtersNames}> Diet type: </span>
-            <select id="filter2" className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}}>
-              <option value="All"> All diets </option>
-              <option value="gluten free"> Gluten Free </option>
-              <option value="ketogenic"> Ketogenic </option>
-              <option value="dairy free"> Dairy Free </option>
-              <option value="lacto ovo vegetarian"> Lacto-Ovo-Vegetarian </option>
-              <option value="vegan"> Vegan </option>
-              <option value="pescatarian"> Pescatarian </option>
-              <option value="paleolithic"> Paleo </option>
-              <option value="primal"> Primal </option>
-              <option value="fodmap friendly"> Low FODMAP </option>            
-              <option value="whole 30"> Whole 30 </option>
-            </select>
-            <span className={styles.filtersNames}> Display: </span>
-            <select id="filter3" className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}}>
-              <option value="All"> All recipes </option>
-              <option value="Created"> My recipes </option>
-            </select>
+            <div className={styles.filterType}>
+              <span className={styles.filtersNames}> Diet type: </span>
+              <select id="filter2" className={styles.filter2} onChange={(e) => {handlerFilterByDiet(e)}}>
+                <option value="All"> All diets </option>
+                <option value="gluten free"> Gluten Free </option>
+                <option value="ketogenic"> Ketogenic </option>
+                <option value="dairy free"> Dairy Free </option>
+                <option value="lacto ovo vegetarian"> Lacto-Ovo-Vegetarian </option>
+                <option value="vegan"> Vegan </option>
+                <option value="pescatarian"> Pescatarian </option>
+                <option value="paleolithic"> Paleo </option>
+                <option value="primal"> Primal </option>
+                <option value="fodmap friendly"> Low FODMAP </option>            
+                <option value="whole 30"> Whole 30 </option>
+              </select>
+            </div>
+            <div className={styles.filterType}>
+              <span className={styles.filtersNames}> Display: </span>
+              <select id="filter3" className={styles.filter3} onChange={(e) => {handlerFilterMyRecipes(e)}}>
+                <option value="All"> All recipes </option>
+                <option value="Created"> My recipes </option>
+              </select>
+            </div>
           </div>
           {/* BOTÓN PARA RESETEAR FILTROS */}
           <button className={styles.getAllBtn} onClick={resetFilters}> Reset filters </button>

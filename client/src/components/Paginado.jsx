@@ -52,11 +52,16 @@ const PagContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin-left: 22%;
+
+    @media only screen and (max-width: 600px) {
+        margin-left: 14%;
+    }
 `
 
 const PageList = styled.ul`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
     width: 60%;
@@ -71,8 +76,6 @@ const PageNum = styled.li`
 const PageBtn = styled.button`
     background-color: ${(props) => (props.active ? "#F1E217" : "#F18817")};
     color: ${(props) => (props.active ? "#000000" : "#ffffff")};
-    /* background-color: #F18817;
-    border: 1px solid #F18817; */
     border-radius: 2px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 100%;

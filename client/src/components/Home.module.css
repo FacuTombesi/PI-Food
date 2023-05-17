@@ -31,6 +31,12 @@
     align-items: center;
 }
 
+.filterType {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .filtersNames {
     color: #F18817;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -71,7 +77,6 @@
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    right: 0px;
     width: 70%;
     height: 100%;
 }
@@ -130,7 +135,7 @@
         width: 100%;
         height: auto;
         border-radius: 0px;
-        margin-top: 2%;
+        margin-top: 5%;
     }
     
     .searchFilter {
@@ -141,6 +146,10 @@
     .filtersCont {
         flex-direction: row;
         justify-content: center;
+    }
+
+    .filterType {
+        display: column;
     }
     
     .filter1, .filter2, .filter3 {
@@ -154,12 +163,12 @@
         padding: 2% 4%;
     }
     
-    .recipes {
-        padding: 5px;
+    .rContainer {
+        width: 100%;
     }
     
     .lContainer, .eContainer {
-        margin: 10%;
+        margin: 5%;
     }
     
     .loaderGif {

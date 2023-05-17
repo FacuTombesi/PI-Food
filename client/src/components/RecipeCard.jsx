@@ -40,8 +40,14 @@ const RecipeContainer = styled.div`
     border-radius: 10px;
     background-color: white;
     transition: transform 0.2s ease-in-out;
+
     &:hover {
         transform: scale(1.1);
+    }
+
+    @media only screen and (max-width: 600px) {
+        margin: 10px;
+        height: auto;
     }
 `
 
@@ -65,6 +71,7 @@ const RecipeName = styled.h1`
     font-size: 110%;
     font-weight: 500;
     text-align: center;
+
     &:hover {
         color: black;
     }
